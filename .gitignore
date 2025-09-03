@@ -217,3 +217,5 @@ airflow.cfg
 airflow-webserver.pid
 
 /data
+
+/logs
