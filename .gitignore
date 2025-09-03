@@ -208,13 +208,11 @@ marimo/_lsp/
 __marimo__/
 
 
-# .yml profile file
-dbt/my_dbt_project3/profiles.yml
 
 #Aiflow
 airflow.db
 airflow.cfg
-airflow-webserver.pid
+
 
 /data
 
