@@ -47,16 +47,36 @@ logger.info("Logger initialized successfully")
 # Three endpoints for NASS quick stats
 # Field yields, Acres harvested, and Production
 
-# Field Yields
-def process_field_yields(minio_client, bucket_name, object_name="job_posting_data.csv", conn=None, snowflake_db=None, snowflake_schema=None):
-    QUERY_URL = os.getenv('NASS_QUICK_STATS_FIELD_YIELDS')
+
+# Function to process any NASS Quick Stats endpoint and upload the result as CSV to MinIO
+def process_nass_quick_stats(minio_client, bucket_name, query_url, object_name):
+    """
+    Downloads data from a NASS Quick Stats API endpoint, converts it to CSV, and uploads to MinIO.
+    Args:
+        minio_client: Minio client object
+        bucket_name: Name of the MinIO bucket
+        query_url: API endpoint URL
+        object_name: Desired CSV filename in MinIO
+    Returns:
+        The parsed JSON data from the API response
+    """
     try:
-        logger.info(f"Starting data ingestion for Field Yields from {QUERY_URL}")
-        response = requests.get(QUERY_URL)
+        logger.info(f"Starting data ingestion from {query_url}")
+        # Request data from the API endpoint
+        response = requests.get(query_url)
         response.raise_for_status()
         data = response.json()
-        csv_bytes = io.BytesIO(response.content)
-        csv_size = len(response.content)
+
+        # Convert JSON to DataFrame and then to CSV
+        if 'data' in data:
+            df = pd.DataFrame(data['data'])
+        else:
+            df = pd.DataFrame(data)
+        # Convert DataFrame to CSV in memory
+        csv_buffer = io.StringIO()
+        df.to_csv(csv_buffer, index=False)
+        csv_bytes = io.BytesIO(csv_buffer.getvalue().encode())
+        csv_size = csv_bytes.getbuffer().nbytes
 
         # Upload to MinIO from memory
         csv_bytes.seek(0)
@@ -67,12 +87,13 @@ def process_field_yields(minio_client, bucket_name, object_name="job_posting_dat
             csv_size,
             content_type="text/csv"
         )
-        logger.info(f"Job posting data uploaded to MinIO bucket '{bucket_name}' as '{object_name}'")
-        logger.info("Field yields data retrieved successfully")
+        logger.info(f"Data uploaded to MinIO bucket '{bucket_name}' as '{object_name}'")
+        logger.info("Data retrieved and uploaded successfully")
         return data
     except requests.RequestException as e:
-        logger.error(f"Error occurred while fetching field yields data: {e}")
+        logger.error(f"Error occurred while fetching data: {e}")
         return None
+
 
 
 
@@ -86,9 +107,18 @@ def main():
     )
 
     bucket_name = os.getenv("MINIO_BUCKET_NAME")
-    object_name = "field_yields.csv"
 
-    process_field_yields(minio_client, bucket_name, object_name)
+    # List of (endpoint URL, output CSV filename) tuples
+    endpoints = [
+        (os.getenv("NASS_QUICK_STATS_FIELD_YIELDS"), "field_yields.csv"),
+        (os.getenv("NASS_QUICK_STATS_ACRES_HARVESTED"), "acres_harvested.csv"),
+        (os.getenv("NASS_QUICK_STATS_PRODUCTION"), "production.csv"),
+        (os.getenv("WEATHER_OPEN_METEO"), "weather_open_meteo.csv"),
+    ]
+
+    # Process each endpoint and upload to MinIO
+    for query_url, object_name in endpoints:
+        process_nass_quick_stats(minio_client, bucket_name, query_url, object_name)
 
 
 
