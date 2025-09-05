@@ -217,3 +217,11 @@ airflow.cfg
 /data
 
 /logs
+
+# Airflow runtime files
+airflow-webserver.log
+airflow-webserver.err
+airflow-webserver.out
+airflow-webserver.pid
+airflow-webserver-monitor.pid
+logs/
