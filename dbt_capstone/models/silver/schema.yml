@@ -1,0 +1,26 @@
+version: 2
+
+models:
+  - name: SILVER_ACRES_HARVESTED
+    description: "Cleaned, analysis-ready table of acres harvested by county, commodity, and year. Columns are selected and renamed for downstream analysis and joining."
+    columns:
+      - name: YEAR
+        description: "Year the data was collected."
+      - name: COUNTY_NAME
+        description: "Name of the county where the data was collected."
+      - name: COUNTY_CODE
+        description: "Numeric code for the county."
+      - name: STATE_NAME
+        description: "Name of the state where the data was collected."
+      - name: STATE_ALPHA
+        description: "Two-letter state abbreviation (e.g., TN)."
+      - name: STATE_FIPS_CODE
+        description: "FIPS code for the state."
+      - name: COMMODITY_DESC
+        description: "Description of the commodity (e.g., CORN)."
+      - name: ACRES_HARVESTED
+        description: "Number of acres harvested, renamed from VALUE."
+      - name: UNIT_DESC
+        description: "Unit of measurement for the value (e.g., ACRES)."
+      - name: STATISTICCAT_DESC
+        description: "Description of the statistical category (e.g., AREA HARVESTED)."

@@ -1,0 +1,337 @@
+
+version: 2
+
+sources:
+  - name: BRONZE
+    database: PROJECT4_DB
+    schema: BRONZE
+    tables:
+      - name: ACRES_HARVESTED
+        description: "Raw acres harvested data loaded from MinIO to Snowflake."
+        columns:
+          - name: ASD_CODE
+            description: "Agricultural Statistics District code identifying the reporting district within the state."
+          - name: COUNTRY_CODE
+            description: "Numeric code representing the country (e.g., 9000 for United States)."
+          - name: COUNTY_NAME
+            description: "Name of the county where the data was collected."
+          - name: FREQ_DESC
+            description: "Frequency description of the data collection (e.g., ANNUAL, MONTHLY)."
+          - name: REGION_DESC
+            description: "Description of the region within the state or country (may be blank if not specified)."
+          - name: WATERSHED_DESC
+            description: "Description of the watershed region (may be blank if not specified)."
+          - name: STATE_NAME
+            description: "Name of the state where the data was collected."
+          - name: COUNTY_ANSI
+            description: "ANSI code for the county."
+          - name: STATE_ANSI
+            description: "ANSI code for the state."
+          - name: COUNTY_CODE
+            description: "Numeric code for the county."
+          - name: DOMAIN_DESC
+            description: "Description of the domain for the data (e.g., TOTAL, ORGANIC)."
+          - name: STATISTICCAT_DESC
+            description: "Description of the statistical category (e.g., AREA HARVESTED)."
+          - name: "CV (%)"
+            description: "Coefficient of variation percentage, indicating data reliability."
+          - name: SHORT_DESC
+            description: "Short description of the data item (e.g., CORN, GRAIN - ACRES HARVESTED)."
+          - name: COMMODITY_DESC
+            description: "Description of the commodity (e.g., CORN)."
+          - name: SECTOR_DESC
+            description: "Description of the sector (e.g., CROPS, LIVESTOCK)."
+          - name: COUNTRY_NAME
+            description: "Name of the country where the data was collected."
+          - name: GROUP_DESC
+            description: "Description of the group/category (e.g., FIELD CROPS)."
+          - name: YEAR
+            description: "Year the data was collected."
+          - name: END_CODE
+            description: "End code for the reporting period (may be 0 if not used)."
+          - name: VALUE
+            description: "Reported value for the data item (e.g., acres harvested)."
+          - name: UNIT_DESC
+            description: "Unit of measurement for the value (e.g., ACRES, BUSHELS)."
+          - name: STATE_FIPS_CODE
+            description: "FIPS code for the state."
+          - name: WATERSHED_CODE
+            description: "Code for the watershed region."
+          - name: BEGIN_CODE
+            description: "Begin code for the reporting period (may be 0 if not used)."
+          - name: SOURCE_DESC
+            description: "Description of the data source (e.g., SURVEY)."
+          - name: LOAD_TIME
+            description: "Timestamp when the data was loaded into the system."
+          - name: PRODN_PRACTICE_DESC
+            description: "Description of the production practice (e.g., ALL PRODUCTION PRACTICES)."
+          - name: UTIL_PRACTICE_DESC
+            description: "Description of the utilization practice (e.g., GRAIN)."
+          - name: ZIP_5
+            description: "5-digit ZIP code for the location (may be blank if not specified)."
+          - name: LOCATION_DESC
+            description: "Description of the location (e.g., TENNESSEE, DELTA, DYER)."
+          - name: REFERENCE_PERIOD_DESC
+            description: "Description of the reference period (e.g., YEAR, MONTH)."
+          - name: WEEK_ENDING
+            description: "Week ending date or value (may be blank if not specified)."
+          - name: AGG_LEVEL_DESC
+            description: "Description of the aggregation level (e.g., COUNTY, STATE)."
+          - name: CLASS_DESC
+            description: "Description of the class/category (e.g., ALL CLASSES)."
+          - name: CONGR_DISTRICT_CODE
+            description: "Congressional district code (may be blank if not specified)."
+          - name: DOMAINCAT_DESC
+            description: "Description of the domain category (may be blank if not specified)."
+          - name: ASD_DESC
+            description: "Description of the Agricultural Statistics District (e.g., DELTA)."
+          - name: STATE_ALPHA
+            description: "Two-letter state abbreviation (e.g., TN)."
+          - name: SOURCE_FILE
+            description: "Name of the source file from which the data was loaded."
+          - name: LOAD_TIMESTAMP_UTC
+            description: "Timestamp (UTC) when the data was loaded into Snowflake."
+      - name: FIELD_YIELDS
+        description: "Raw field yields data loaded from MinIO to Snowflake. Each row represents yield statistics for a specific county, crop, and year."
+        columns:
+          - name: CLASS_DESC
+            description: "Description of the class/category (e.g., ALL CLASSES)."
+          - name: AGG_LEVEL_DESC
+            description: "Description of the aggregation level (e.g., COUNTY, STATE)."
+          - name: COUNTRY_CODE
+            description: "Numeric code representing the country (e.g., 9000 for United States)."
+          - name: UNIT_DESC
+            description: "Unit of measurement for the value (e.g., BU / ACRE, ACRES)."
+          - name: DOMAINCAT_DESC
+            description: "Description of the domain category (may be blank if not specified)."
+          - name: LOAD_TIME
+            description: "Timestamp when the data was loaded into the system."
+          - name: STATE_FIPS_CODE
+            description: "FIPS code for the state."
+          - name: STATISTICCAT_DESC
+            description: "Description of the statistical category (e.g., YIELD)."
+          - name: END_CODE
+            description: "End code for the reporting period (may be 0 if not used)."
+          - name: COUNTRY_NAME
+            description: "Name of the country where the data was collected."
+          - name: DOMAIN_DESC
+            description: "Description of the domain for the data (e.g., TOTAL, ORGANIC)."
+          - name: LOCATION_DESC
+            description: "Description of the location (e.g., TENNESSEE, DELTA, DYER)."
+          - name: WATERSHED_CODE
+            description: "Code for the watershed region."
+          - name: SOURCE_DESC
+            description: "Description of the data source (e.g., SURVEY)."
+          - name: SECTOR_DESC
+            description: "Description of the sector (e.g., CROPS, LIVESTOCK)."
+          - name: COUNTY_NAME
+            description: "Name of the county where the data was collected."
+          - name: STATE_ANSI
+            description: "ANSI code for the state."
+          - name: COUNTY_CODE
+            description: "Numeric code for the county."
+          - name: COUNTY_ANSI
+            description: "ANSI code for the county."
+          - name: SHORT_DESC
+            description: "Short description of the data item (e.g., CORN, GRAIN - YIELD, MEASURED IN BU / ACRE)."
+          - name: STATE_NAME
+            description: "Name of the state where the data was collected."
+          - name: CONGR_DISTRICT_CODE
+            description: "Congressional district code (may be blank if not specified)."
+          - name: YEAR
+            description: "Year the data was collected."
+          - name: BEGIN_CODE
+            description: "Begin code for the reporting period (may be 0 if not used)."
+          - name: ASD_DESC
+            description: "Description of the Agricultural Statistics District (e.g., DELTA)."
+          - name: COMMODITY_DESC
+            description: "Description of the commodity (e.g., CORN)."
+          - name: GROUP_DESC
+            description: "Description of the group/category (e.g., FIELD CROPS)."
+          - name: ASD_CODE
+            description: "Agricultural Statistics District code identifying the reporting district within the state."
+          - name: REGION_DESC
+            description: "Description of the region within the state or country (may be blank if not specified)."
+          - name: STATE_ALPHA
+            description: "Two-letter state abbreviation (e.g., TN)."
+          - name: WEEK_ENDING
+            description: "Week ending date or value (may be blank if not specified)."
+          - name: PRODN_PRACTICE_DESC
+            description: "Description of the production practice (e.g., ALL PRODUCTION PRACTICES)."
+          - name: REFERENCE_PERIOD_DESC
+            description: "Description of the reference period (e.g., YEAR, MONTH)."
+          - name: VALUE
+            description: "Reported value for the data item (e.g., yield per acre)."
+          - name: UTIL_PRACTICE_DESC
+            description: "Description of the utilization practice (e.g., GRAIN)."
+          - name: WATERSHED_DESC
+            description: "Description of the watershed region (may be blank if not specified)."
+          - name: ZIP_5
+            description: "5-digit ZIP code for the location (may be blank if not specified)."
+          - name: CV (%)
+            description: "Coefficient of variation percentage, indicating data reliability."
+          - name: FREQ_DESC
+            description: "Frequency description of the data collection (e.g., ANNUAL, MONTHLY)."
+          - name: SOURCE_FILE
+            description: "Name of the source file from which the data was loaded."
+          - name: LOAD_TIMESTAMP_UTC
+            description: "Timestamp (UTC) when the data was loaded into Snowflake."
+      - name: PRODUCTION
+        description: "Raw crop production data loaded from MinIO to Snowflake. Each row represents production statistics for a specific county, crop, and year."
+        columns:
+          - name: LOCATION_DESC
+            description: "Description of the location (e.g., TENNESSEE, DELTA, DYER)."
+          - name: WATERSHED_CODE
+            description: "Code for the watershed region."
+          - name: SOURCE_DESC
+            description: "Description of the data source (e.g., SURVEY)."
+          - name: SECTOR_DESC
+            description: "Description of the sector (e.g., CROPS, LIVESTOCK)."
+          - name: END_CODE
+            description: "End code for the reporting period (may be 0 if not used)."
+          - name: COUNTRY_NAME
+            description: "Name of the country where the data was collected."
+          - name: DOMAIN_DESC
+            description: "Description of the domain for the data (e.g., TOTAL, ORGANIC)."
+          - name: COUNTY_NAME
+            description: "Name of the county where the data was collected."
+          - name: STATE_ANSI
+            description: "ANSI code for the state."
+          - name: COUNTY_CODE
+            description: "Numeric code for the county."
+          - name: COUNTY_ANSI
+            description: "ANSI code for the county."
+          - name: SHORT_DESC
+            description: "Short description of the data item (e.g., CORN, GRAIN - PRODUCTION, MEASURED IN BU)."
+          - name: AGG_LEVEL_DESC
+            description: "Description of the aggregation level (e.g., COUNTY, STATE)."
+          - name: COUNTRY_CODE
+            description: "Numeric code representing the country (e.g., 9000 for United States)."
+          - name: UNIT_DESC
+            description: "Unit of measurement for the value (e.g., BU, ACRES)."
+          - name: CLASS_DESC
+            description: "Description of the class/category (e.g., ALL CLASSES)."
+          - name: STATE_FIPS_CODE
+            description: "FIPS code for the state."
+          - name: STATISTICCAT_DESC
+            description: "Description of the statistical category (e.g., PRODUCTION)."
+          - name: DOMAINCAT_DESC
+            description: "Description of the domain category (may be blank if not specified)."
+          - name: LOAD_TIME
+            description: "Timestamp when the data was loaded into the system."
+          - name: PRODN_PRACTICE_DESC
+            description: "Description of the production practice (e.g., ALL PRODUCTION PRACTICES)."
+          - name: REFERENCE_PERIOD_DESC
+            description: "Description of the reference period (e.g., YEAR, MONTH)."
+          - name: VALUE
+            description: "Reported value for the data item (e.g., total production)."
+          - name: GROUP_DESC
+            description: "Description of the group/category (e.g., FIELD CROPS)."
+          - name: ASD_CODE
+            description: "Agricultural Statistics District code identifying the reporting district within the state."
+          - name: REGION_DESC
+            description: "Description of the region within the state or country (may be blank if not specified)."
+          - name: STATE_ALPHA
+            description: "Two-letter state abbreviation (e.g., TN)."
+          - name: WEEK_ENDING
+            description: "Week ending date or value (may be blank if not specified)."
+          - name: WATERSHED_DESC
+            description: "Description of the watershed region (may be blank if not specified)."
+          - name: ZIP_5
+            description: "5-digit ZIP code for the location (may be blank if not specified)."
+          - name: CV (%)
+            description: "Coefficient of variation percentage, indicating data reliability."
+          - name: FREQ_DESC
+            description: "Frequency description of the data collection (e.g., ANNUAL, MONTHLY)."
+          - name: UTIL_PRACTICE_DESC
+            description: "Description of the utilization practice (e.g., GRAIN)."
+          - name: BEGIN_CODE
+            description: "Begin code for the reporting period (may be 0 if not used)."
+          - name: STATE_NAME
+            description: "Name of the state where the data was collected."
+          - name: YEAR
+            description: "Year the data was collected."
+          - name: CONGR_DISTRICT_CODE
+            description: "Congressional district code (may be blank if not specified)."
+          - name: ASD_DESC
+            description: "Description of the Agricultural Statistics District (e.g., DELTA)."
+          - name: COMMODITY_DESC
+            description: "Description of the commodity (e.g., CORN)."
+          - name: SOURCE_FILE
+            description: "Name of the source file from which the data was loaded."
+          - name: LOAD_TIMESTAMP_UTC
+            description: "Timestamp (UTC) when the data was loaded into Snowflake."
+      - name: WEATHER_OPEN_METEO
+        description: "Historical daily weather data for Tennessee, loaded from MinIO to Snowflake. Each row contains weather metrics and metadata for a specific location and time period."
+        columns:
+          - name: LATITUDE
+            description: "Latitude of the weather data location."
+          - name: LONGITUDE
+            description: "Longitude of the weather data location."
+          - name: GENERATIONTIME_MS
+            description: "Time taken to generate the weather data, in milliseconds."
+          - name: UTC_OFFSET_SECONDS
+            description: "UTC offset in seconds for the timezone."
+          - name: TIMEZONE
+            description: "Timezone of the weather data location (e.g., America/Chicago)."
+          - name: TIMEZONE_ABBREVIATION
+            description: "Abbreviation for the timezone (e.g., GMT-5)."
+          - name: ELEVATION
+            description: "Elevation of the location in meters."
+          - name: DAILY_UNITS
+            description: "Units for the daily weather data (e.g., iso8601, °C, mm)."
+          - name: DAILY
+            description: "List of daily weather values (e.g., temperatures, precipitation) for the period."
+          - name: SOURCE_FILE
+            description: "Name of the source file from which the data was loaded."
+          - name: LOAD_TIMESTAMP_UTC
+            description: "Timestamp (UTC) when the data was loaded into Snowflake."
+      - name: TENNESSEE_COUNTY_CROP_PRODUCTION_2022
+        description: "Raw crop production data from the 2022 Census, loaded from MinIO to Snowflake. Each row represents a specific crop production metric for a county and year."
+        columns:
+          - name: PROGRAM
+            description: "Source program for the data (e.g., CENSUS)."
+          - name: YEAR
+            description: "Year the data was collected."
+          - name: PERIOD
+            description: "Reporting period (e.g., YEAR, MONTH)."
+          - name: WEEK ENDING
+            description: "Week ending date or value (may be blank if not specified)."
+          - name: GEO LEVEL
+            description: "Geographic aggregation level (e.g., COUNTY, STATE)."
+          - name: STATE
+            description: "Name of the state where the data was collected."
+          - name: STATE ANSI
+            description: "ANSI code for the state."
+          - name: AG DISTRICT
+            description: "Name of the agricultural district."
+          - name: AG DISTRICT CODE
+            description: "Code for the agricultural district."
+          - name: COUNTY
+            description: "Name of the county where the data was collected."
+          - name: COUNTY ANSI
+            description: "ANSI code for the county."
+          - name: ZIP CODE
+            description: "5-digit ZIP code for the location (may be blank if not specified)."
+          - name: REGION
+            description: "Region within the state or country (may be blank if not specified)."
+          - name: WATERSHED_CODE
+            description: "Code for the watershed region."
+          - name: WATERSHED
+            description: "Description of the watershed region (may be blank if not specified)."
+          - name: COMMODITY
+            description: "Description of the commodity (e.g., CORN)."
+          - name: DATA ITEM
+            description: "Description of the data item (e.g., ACRES HARVESTED, OPERATIONS WITH SALES)."
+          - name: DOMAIN
+            description: "Domain for the data (e.g., TOTAL)."
+          - name: DOMAIN CATEGORY
+            description: "Domain category (e.g., NOT SPECIFIED, AREA HARVESTED: (1.0 TO 24.9 ACRES))."
+          - name: VALUE
+            description: "Reported value for the data item."
+          - name: CV (%)
+            description: "Coefficient of variation percentage, indicating data reliability."
+          - name: SOURCE_FILE
+            description: "Name of the source file from which the data was loaded."
+          - name: LOAD_TIMESTAMP_UTC
+            description: "Timestamp (UTC) when the data was loaded into Snowflake."
