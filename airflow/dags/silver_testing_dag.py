@@ -17,13 +17,13 @@ if SRC_PATH not in sys.path:
 
 
 with DAG(
-    dag_id="silver_data_dag",
+    dag_id="test_silver_data_dag",
      start_date=pendulum.today('UTC').add(days=-1),
     schedule='0 2 * * *',
     catchup=False,
-    tags=['dbt', 'silver', 'transformation'],
+    tags=['dbt', 'test_silver'],
 ) as dag:
     silver_data = BashOperator(
-        task_id='silver_data',
-        bash_command='cd /opt/airflow/dbt_capstone && dbt run --select silver'
+        task_id='test_silver_data',
+        bash_command='cd /opt/airflow/dbt_capstone && dbt test --select silver'
     )

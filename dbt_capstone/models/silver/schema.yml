@@ -196,6 +196,8 @@ models:
           - not_null
       - name: VALUE
         description: "Value for the data item."
+        tests:
+          - not_null
       - name: CV_PERCENT
         description: "Coefficient of variation percent."
         tests:
