@@ -9,6 +9,7 @@ sources:
       - name: SILVER_ACRES_HARVESTED
       - name: SILVER_PRODUCTION
       - name: SILVER_WEATHER_OPEN_METEO
+      - name: SILVER_TENNESSEE_COUNTY_CROP_PRODUCTION_2022
 
 models:
   - name: GOLD_YIELD_EFFICIENCY
@@ -57,3 +58,20 @@ models:
         description: "Number of days with freezing temperatures (<0°C)."
       - name: HEAVY_RAIN_DAYS
         description: "Number of days with heavy rainfall (>25mm)."
+  - name: GOLD_CENSUS_VALIDATION
+    description: "Compares NASS and Census crop production for validation and difference analysis."
+    columns:
+      - name: COUNTY_NAME
+        description: "Name of the county."
+      - name: COUNTY_CODE
+        description: "Numeric code for the county."
+      - name: COMMODITY_DESC
+        description: "Description of the commodity."
+      - name: NASS_PRODUCTION
+        description: "Production value from NASS."
+      - name: CENSUS_PRODUCTION
+        description: "Production value from Census."
+      - name: DIFFERENCE
+        description: "Difference between NASS and Census production."
+      - name: PERCENT_DIFFERENCE
+        description: "Percent difference between NASS and Census production."
