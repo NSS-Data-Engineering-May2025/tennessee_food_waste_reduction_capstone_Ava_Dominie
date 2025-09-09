@@ -1,3 +1,17 @@
+-- GOLD_CENSUS_VALIDATION:
+-- This model compares NASS 2024 production data with the USDA Census of Agriculture 2022 (baseline).
+-- Purpose:
+--   • Use the 2022 Census as a "ground truth snapshot" for county-level crop production.
+--   • Calculate absolute and percent differences between 2024 NASS estimates and 2022 Census values
+--     to track trends and shifts in production since the last Census.
+--   • Identify coverage issues with OVERLAP_STATUS (e.g., Missing NASS, Missing Census, Missing Both),
+--     which helps flag data quality problems or mismatches in commodity/county reporting.
+-- Why needed:
+--   • Ensures transparency in how NASS estimates deviate from the Census baseline.
+--   • Provides a validation layer for downstream forecasting models.
+--   • Supports storytelling: highlights whether production is stable, increasing, or decreasing 
+--     relative to the last comprehensive Census benchmark.
+
 {{ config(materialized='table') }}
 
 WITH nass AS (
@@ -42,7 +56,14 @@ SELECT
         WHEN c.CENSUS_PRODUCTION > 0 
         THEN ROUND((n.PRODUCTION - c.CENSUS_PRODUCTION) / c.CENSUS_PRODUCTION * 100, 2) 
     END AS PERCENT_DIFFERENCE
-FROM census c
-LEFT JOIN nass n
-  ON n.COUNTY_CODE = c.COUNTY_CODE
- AND n.COMMODITY_DESC = c.COMMODITY
+
+        ,CASE 
+            WHEN n.PRODUCTION IS NULL AND c.CENSUS_PRODUCTION IS NOT NULL THEN 'Missing NASS'
+            WHEN c.CENSUS_PRODUCTION IS NULL AND n.PRODUCTION IS NOT NULL THEN 'Missing Census'
+            WHEN n.PRODUCTION IS NULL AND c.CENSUS_PRODUCTION IS NULL THEN 'Missing Both'
+            ELSE 'Overlap'
+        END AS OVERLAP_STATUS
+    FROM census c
+    LEFT JOIN nass n
+      ON n.COUNTY_CODE = c.COUNTY_CODE
+     AND n.COMMODITY_DESC = c.COMMODITY
