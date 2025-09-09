@@ -31,6 +31,10 @@ clean-targets:         # directories to be removed by `dbt clean`
 # files using the `{{ config(...) }}` macro.
 models:
   dbt_capstone:
-    # Config indicated by + and applies to all files under models/example/
-    example:
-      +materialized: view
+    +schema: GOLD
+    silver:
+      +materialized: incremental
+      +schema: SILVER
+    gold:
+      +materialized: table
+      +on_schema_change: 'fail'

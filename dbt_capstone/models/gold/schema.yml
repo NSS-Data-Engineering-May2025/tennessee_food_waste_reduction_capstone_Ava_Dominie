@@ -1,0 +1,104 @@
+version: 2
+
+sources:
+  - name: SILVER
+    database: PROJECT4_DB
+    schema: SILVER
+    tables:
+      - name: SILVER_FIELD_YIELDS
+      - name: SILVER_ACRES_HARVESTED
+      - name: SILVER_PRODUCTION
+      - name: SILVER_WEATHER_OPEN_METEO
+      - name: SILVER_TENNESSEE_COUNTY_CROP_PRODUCTION_2022
+
+models:
+  - name: GOLD_YIELD_EFFICIENCY
+    description: "Yield efficiency by county and commodity, combining field yields, acres harvested, and production. Includes calculated yield per acre."
+    columns:
+      - name: YEAR
+        description: "Year of the record."
+      - name: COUNTY_NAME
+        description: "Name of the county."
+      - name: COUNTY_CODE
+        description: "Numeric code for the county."
+      - name: STATE_NAME
+        description: "Name of the state."
+      - name: STATE_ALPHA
+        description: "State abbreviation."
+      - name: STATE_FIPS_CODE
+        description: "FIPS code for the state."
+      - name: COMMODITY_DESC
+        description: "Description of the commodity."
+      - name: ACRES_HARVESTED
+        description: "Number of acres harvested."
+      - name: YIELD
+        description: "Yield per acre for the commodity."
+      - name: PRODUCTION
+        description: "Total production for the commodity."
+      - name: YIELD_PER_ACRE
+        description: "Calculated yield per acre (PRODUCTION / ACRES_HARVESTED)."
+  - name: GOLD_WEATHER_YIELD_CORRELATION
+    description: "Correlates weather patterns with crop yields by county and commodity."
+    columns:
+      - name: YEAR
+        description: "Year of the record."
+      - name: COUNTY_NAME
+        description: "Name of the county."
+      - name: COMMODITY_DESC
+        description: "Description of the commodity."
+      - name: YIELD
+        description: "Yield per acre for the commodity."
+      - name: AVG_TEMP
+        description: "Average temperature for the year."
+      - name: TOTAL_PRECIP
+        description: "Total precipitation for the year."
+      - name: EXTREME_HEAT_DAYS
+        description: "Number of days with extreme heat (>35°C)."
+      - name: FREEZE_DAYS
+        description: "Number of days with freezing temperatures (<0°C)."
+      - name: HEAVY_RAIN_DAYS
+        description: "Number of days with heavy rainfall (>25mm)."
+  - name: GOLD_CENSUS_VALIDATION
+    description: "Compares NASS and Census crop production for validation and difference analysis."
+    columns:
+      - name: COUNTY_NAME
+        description: "Name of the county."
+      - name: COUNTY_CODE
+        description: "Numeric code for the county."
+      - name: COMMODITY_DESC
+        description: "Description of the commodity."
+      - name: NASS_PRODUCTION
+        description: "Production value from NASS."
+      - name: CENSUS_PRODUCTION
+        description: "Production value from Census."
+      - name: DIFFERENCE
+        description: "Difference between NASS and Census production."
+      - name: PERCENT_DIFFERENCE
+        description: "Percent difference between NASS and Census production."
+  - name: GOLD_FORECAST_READY
+    description: "Combines yield efficiency and weather correlation for forecasting."
+    columns:
+      - name: YEAR
+        description: "Year of the record."
+      - name: COUNTY_NAME
+        description: "Name of the county."
+      - name: COUNTY_CODE
+        description: "Numeric code for the county."
+      - name: COMMODITY_DESC
+        description: "Description of the commodity."
+      - name: ACRES_HARVESTED
+        description: "Number of acres harvested."
+      - name: PRODUCTION
+        description: "Total production for the commodity."
+      - name: YIELD
+        description: "Yield per acre for the commodity."
+      - name: AVG_TEMP
+        description: "Average temperature for the year."
+      - name: TOTAL_PRECIP
+        description: "Total precipitation for the year."
+      - name: EXTREME_HEAT_DAYS
+        description: "Number of days with extreme heat (>35°C)."
+      - name: FREEZE_DAYS
+        description: "Number of days with freezing temperatures (<0°C)."
+      - name: HEAVY_RAIN_DAYS
+        description: "Number of days with heavy rainfall (>25mm)."
