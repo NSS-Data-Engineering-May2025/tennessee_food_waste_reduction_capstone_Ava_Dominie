@@ -75,3 +75,30 @@ models:
         description: "Difference between NASS and Census production."
       - name: PERCENT_DIFFERENCE
         description: "Percent difference between NASS and Census production."
+  - name: GOLD_FORECAST_READY
+    description: "Combines yield efficiency and weather correlation for forecasting."
+    columns:
+      - name: YEAR
+        description: "Year of the record."
+      - name: COUNTY_NAME
+        description: "Name of the county."
+      - name: COUNTY_CODE
+        description: "Numeric code for the county."
+      - name: COMMODITY_DESC
+        description: "Description of the commodity."
+      - name: ACRES_HARVESTED
+        description: "Number of acres harvested."
+      - name: PRODUCTION
+        description: "Total production for the commodity."
+      - name: YIELD
+        description: "Yield per acre for the commodity."
+      - name: AVG_TEMP
+        description: "Average temperature for the year."
+      - name: TOTAL_PRECIP
+        description: "Total precipitation for the year."
+      - name: EXTREME_HEAT_DAYS
+        description: "Number of days with extreme heat (>35°C)."
+      - name: FREEZE_DAYS
+        description: "Number of days with freezing temperatures (<0°C)."
+      - name: HEAVY_RAIN_DAYS
+        description: "Number of days with heavy rainfall (>25mm)."
