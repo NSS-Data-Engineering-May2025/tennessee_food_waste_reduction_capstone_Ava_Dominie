@@ -18,7 +18,7 @@ if SRC_PATH not in sys.path:
 
 with DAG(
     dag_id="test_silver_data_dag",
-     start_date=pendulum.today('UTC').add(days=-1),
+    start_date=pendulum.today('UTC').add(days=-1),
     schedule='0 2 * * *',
     catchup=False,
     tags=['dbt', 'test_silver'],
