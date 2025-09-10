@@ -1,0 +1,64 @@
+-- GOLD_YIELD_EFFICIENCY:
+-- Integrates yields, acres harvested, and production into a single table.
+-- Standardizes numeric values and calculates yield per acre as a core metric.
+-- Creates a clean, county-level view of crop performance, serving as the 
+-- foundation for downstream analysis and comparisons against weather data.
+{{ config(materialized='table') }}
+
+WITH yields AS (
+    SELECT
+        YEAR,
+        COUNTY_NAME,
+        COUNTY_CODE,
+        STATE_NAME,
+        STATE_ALPHA,
+        STATE_FIPS_CODE,
+        COMMODITY_DESC,
+        TRY_CAST(REPLACE(YIELD, ',', '') AS FLOAT) AS YIELD
+    FROM {{ source('SILVER', 'SILVER_FIELD_YIELDS') }}
+),
+
+acres AS (
+    SELECT
+        YEAR,
+        COUNTY_NAME,
+        COUNTY_CODE,
+        COMMODITY_DESC,
+        TRY_CAST(REPLACE(ACRES_HARVESTED, ',', '') AS FLOAT) AS ACRES_HARVESTED
+    FROM {{ source('SILVER','SILVER_ACRES_HARVESTED') }}
+),
+
+production AS (
+    SELECT
+        YEAR,
+        COUNTY_NAME,
+        COUNTY_CODE,
+        COMMODITY_DESC,
+        TRY_CAST(REPLACE(PRODUCTION, ',', '') AS FLOAT) AS PRODUCTION
+    FROM {{ source('SILVER', 'SILVER_PRODUCTION') }}
+)
+
+SELECT
+    y.YEAR,
+    y.COUNTY_NAME,
+    y.COUNTY_CODE,
+    y.STATE_NAME,
+    y.STATE_ALPHA,
+    y.STATE_FIPS_CODE,
+    y.COMMODITY_DESC,
+    a.ACRES_HARVESTED,
+    y.YIELD,
+    p.PRODUCTION,
+    CASE 
+        WHEN a.ACRES_HARVESTED > 0 THEN p.PRODUCTION / a.ACRES_HARVESTED 
+        ELSE NULL 
+    END AS YIELD_PER_ACRE
+FROM yields y
+LEFT JOIN acres a
+  ON y.YEAR = a.YEAR
+ AND y.COUNTY_NAME = a.COUNTY_NAME
+ AND y.COMMODITY_DESC = a.COMMODITY_DESC
+LEFT JOIN production p
+  ON y.YEAR = p.YEAR
+ AND y.COUNTY_NAME = p.COUNTY_NAME
+ AND y.COMMODITY_DESC = p.COMMODITY_DESC
