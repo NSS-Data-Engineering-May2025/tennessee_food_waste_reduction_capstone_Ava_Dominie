@@ -3,7 +3,7 @@
 ## Project Overview  
 This project supports **predictive insights for Tennessee’s food supply chain** by integrating historical crop data, weather conditions, and yield modeling.  
 
-The goal is to **identify potential overstock or understock situations before they occur**, allowing suppliers, retailers, and policymakers to make informed decisions that **reduce food waste and optimize distribution**.  
+The goal is to **identify potential overstock or understock situations before they occur**, allowing suppliers, retailers, and policymakers to make informed decisions that **reduce food waste and optimize supply chains**.  
 
 The pipeline is built to:  
 - Collect and automate ingestion of multiple datasets (census, survey, and API sources).  
