@@ -50,10 +50,11 @@ The project follows a **medallion architecture**:
 - **Census Validation (`GOLD_CENSUS_VALIDATION`)**  
   Compares NASS 2024 production against Census 2022 baseline.  
   Flags overlaps, missing data, and calculates percent differences.  
-- **Climate-Yield Integration (`GOLD_CLIMATE_YIELD_INTEGRATION`)**  
-  Links efficiency and weather metrics, enabling analysis of how climate affects production.  
-
+- **Forecast Ready (`GOLD_FORECAST_READY`)**  
+  Joins yield efficiency with weather correlation metrics at the county level.  
+  Enables analysis of how production, yield, and acres harvested interact with climate factors (temperature, precipitation, extreme events).  
 ---
+
 ## Why This Pipeline Matters  
 - **Baseline Accuracy** – Census 2022 serves as a “ground truth snapshot” for validating and contextualizing newer NASS data.  
 - **Real-Time Context** – Weather impacts are incorporated to explain deviations from historical yield expectations.  
