@@ -1,0 +1,24 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, AJD-current-working ]
+  pull_request:
+    branches: [ main, AJD-current-working ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+      - name: Run dbt tests
+        run: |
+          cd dbt_capstone
+          dbt test --select gold
