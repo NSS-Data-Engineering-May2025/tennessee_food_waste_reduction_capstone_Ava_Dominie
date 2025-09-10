@@ -11,7 +11,6 @@
 --   • Provides a validation layer for downstream forecasting models.
 --   • Supports storytelling: highlights whether production is stable, increasing, or decreasing 
 --     relative to the last comprehensive Census benchmark.
-
 {{ config(materialized='table') }}
 
 WITH nass AS (

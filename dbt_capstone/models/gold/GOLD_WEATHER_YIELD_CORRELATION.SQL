@@ -1,3 +1,16 @@
+-- GOLD_WEATHER_YIELD:
+-- This model combines yield efficiency metrics with aggregated weather features 
+-- to analyze how climate factors may be influencing crop performance at the county level.
+-- Purpose:
+--   • Join GOLD_YIELD_EFFICIENCY (acres harvested, production, yield) 
+--     with GOLD_WEATHER_YIELD_CORRELATION (temperature, precipitation, extreme events).
+--   • Enable side-by-side analysis of crop outcomes against key weather drivers 
+--     such as heat, freeze, and heavy rain days.
+-- Why needed:
+--   • Provides an integrated dataset for investigating weather–yield relationships.
+--   • Supports predictive insights into how changing climate conditions may impact 
+--     agricultural productivity.
+--   • Acts as a foundation for downstream visualizations, modeling, and forecasting.
 {{ config(materialized='table') }}
 
 WITH weather AS (

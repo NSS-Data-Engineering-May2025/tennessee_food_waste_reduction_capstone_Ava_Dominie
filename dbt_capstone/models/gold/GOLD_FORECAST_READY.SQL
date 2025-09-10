@@ -1,3 +1,8 @@
+-- GOLD_FORECAST_READY:
+-- Joins yield efficiency with weather correlation metrics at the county level.  
+-- Enables analysis of how production, yield, and acres harvested interact with 
+-- climate factors (temperature, precipitation, extreme events).  
+-- Serves as a key dataset for identifying trends and building predictive insights.
 {{ config(materialized='table') }}
 
 SELECT
