@@ -1,3 +1,8 @@
+-- GOLD_YIELD_EFFICIENCY:
+-- Integrates yields, acres harvested, and production into a single table.
+-- Standardizes numeric values and calculates yield per acre as a core metric.
+-- Creates a clean, county-level view of crop performance, serving as the 
+-- foundation for downstream analysis and comparisons against weather data.
 {{ config(materialized='table') }}
 
 WITH yields AS (
